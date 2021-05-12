@@ -1,7 +1,6 @@
 package eu.mrndesign.matned.jsonplaceholder.model;
 
 import eu.mrndesign.matned.jsonplaceholder.dto.IPostDTO;
-import eu.mrndesign.matned.jsonplaceholder.dto.PostDTO;
 import eu.mrndesign.matned.jsonplaceholder.exception.NullDataProvidedException;
 
 import javax.persistence.*;
@@ -13,12 +12,14 @@ public class Post implements IPost{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer dataBaseId;
+    private Long dataBaseId;
 
     private Integer userId;
     private Integer id;
     private String title;
     private String body;
+
+    private boolean isEdited;
 
     public Post() {
     }
@@ -28,21 +29,33 @@ public class Post implements IPost{
         this.id = id;
         this.title = title;
         this.body = body;
+        isEdited = false;
     }
 
     @Override
-    public IPost applyNew(IPostDTO entity) {
-        if (entity != null)
+    public IPost applyNew(IPostDTO dto) {
+        if (dto != null)
                 return new Post(
-                        entity.getUserId(),
-                        entity.getId(),
-                        entity.getBody(),
-                        entity.getTitle());
+                        dto.getUserId() != null? dto.getUserId(): this.userId,
+                        dto.getId() != null? dto.getId() : this.id,
+                        dto.getBody() != null? dto.getBody() : this.body,
+                        dto.getTitle() != null? dto.getTitle() : this.title);
         else throw new NullDataProvidedException();
     }
 
-    public static Post apply(IPostDTO data) {
-        return new Post();
+    @Override
+    public void edit(IPostDTO data) {
+        if (data != null){
+            if(data.getBody() != null) this.body = data.getBody();
+            if(data.getTitle() != null) this.title = data.getTitle();
+            isEdited = true;
+        }
+        else throw new NullDataProvidedException();
+
+    }
+
+    public Long getDataBaseId() {
+        return dataBaseId;
     }
 
     public Integer getId() {

@@ -3,38 +3,29 @@ package eu.mrndesign.matned.jsonplaceholder.dto;
 import eu.mrndesign.matned.jsonplaceholder.exception.NullEntityDataProvidedException;
 import eu.mrndesign.matned.jsonplaceholder.model.Post;
 
-public class PostDTO extends BaseDTO implements IPostDTOApply {
+public class PostDTOSimple extends BaseDTO implements IPostDTOBase {
 
-    private Integer userId;
+    private Long indexId;
     private Integer id;
     private String title;
     private String body;
 
-    public PostDTO() {
+    public PostDTOSimple() {
     }
 
-    PostDTO(Integer userId, Integer id, String title, String body) {
-        this.userId = userId;
+    private PostDTOSimple(Integer id, String title, String body) {
         this.id = id;
         this.title = title;
         this.body = body;
     }
 
     @Override
-    public IPostDTO applyNew(Post postToSaveLocally) {
+    public IPostDTOBase applyNewSimple(Post postToSaveLocally) {
         if (postToSaveLocally != null)
-            return new PostDTO(postToSaveLocally.getUserId(),
-                    postToSaveLocally.getId(),
+            return new PostDTOSimple(postToSaveLocally.getId(),
                     postToSaveLocally.getTitle(),
-                    postToSaveLocally.getBody())
-                    .setId(postToSaveLocally.getDataBaseId());
-        else throw  new NullEntityDataProvidedException();
-    }
-
-    @Override
-    public IPostDTOBase applyNewSimple(Post content) {
-        return applyNew(content);
-    }
+                    postToSaveLocally.getBody()).setId(postToSaveLocally.getDataBaseId());
+        else throw  new NullEntityDataProvidedException();    }
 
     @Override
     public Long getIndexId() {
@@ -47,11 +38,6 @@ public class PostDTO extends BaseDTO implements IPostDTOApply {
     }
 
     @Override
-    public Integer getUserId() {
-        return userId;
-    }
-
-    @Override
     public String getTitle() {
         return title;
     }
@@ -61,7 +47,7 @@ public class PostDTO extends BaseDTO implements IPostDTOApply {
         return body;
     }
 
-    private PostDTO setId(Long indexId){
+    private PostDTOSimple setId(Long indexId){
         this.indexId = indexId;
         return this;
     }
