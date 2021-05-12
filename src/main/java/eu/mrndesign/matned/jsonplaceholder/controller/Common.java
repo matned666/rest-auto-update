@@ -12,7 +12,7 @@ public class Common {
 
     private static void downloadNew(IRestService restService, IService postService) {
         Integer randomInt = (int) (Math.random() * restService.getRestServiceDBSize());
-        if (postService.existsById(randomInt))
+        if (!postService.existsById(randomInt))
             postService.savePostToDB(restService.getRestPost(randomInt).apply());
     }
 
