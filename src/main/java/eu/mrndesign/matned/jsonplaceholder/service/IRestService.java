@@ -1,10 +1,11 @@
 package eu.mrndesign.matned.jsonplaceholder.service;
 
-import eu.mrndesign.matned.jsonplaceholder.dto.PostModel;
+import eu.mrndesign.matned.jsonplaceholder.dto.RestPostModel;
 
 public interface IRestService {
 
-    PostModel getRestPost(Integer id);
+    RestPostModel getRestPost(Integer id);
     Integer getRestServiceDBSize();
+    void getRest();
 
 }

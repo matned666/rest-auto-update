@@ -7,4 +7,7 @@ public interface IPost {
     IPost applyNew(IPostDTO entity);
 
     void edit(IPostDTO data);
+
+    Long getDataBaseId();
+    String getTitle();
 }

@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
+@RequestMapping("/jsonplaceholder")
 public class PostController {
 
     private final IService postService;
@@ -33,9 +34,9 @@ public class PostController {
                                  @RequestParam(defaultValue = "", name = "filter") String filter) throws IOException {
         StringBuilder pageBuilder = new StringBuilder();
         if (!isSimple) {
-            pageBuilder.append("/show-all?page=").append(page).append("&amount=").append(amount).append("&filter=").append(filter);
+            pageBuilder.append("/jsonplaceholder/show-all?page=").append(page).append("&amount=").append(amount).append("&filter=").append(filter);
         } else {
-            pageBuilder.append("/show-all-simple?page=").append(page).append("&amount=").append(amount).append("&filter=").append(filter);
+            pageBuilder.append("/jsonplaceholder/show-all-simple?page=").append(page).append("&amount=").append(amount).append("&filter=").append(filter);
         }
        response.sendRedirect(pageBuilder.toString());
 
@@ -47,7 +48,7 @@ public class PostController {
                                       @RequestParam(defaultValue = "${default.page.size}", name = "amount") Integer amount,
                                       @RequestParam(defaultValue = "false", name = "simple") boolean isSimple,
                                       @RequestParam(defaultValue = "", name = "filter") String filter) throws IOException {
-        Common.getRest(restService, postService);
+        restService.getRest();
         getAllSavedPosts(response, page, amount, isSimple, filter);
     }
 

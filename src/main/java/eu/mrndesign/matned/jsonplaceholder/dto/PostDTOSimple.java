@@ -5,7 +5,6 @@ import eu.mrndesign.matned.jsonplaceholder.model.Post;
 
 public class PostDTOSimple extends BaseDTO implements IPostDTOBase {
 
-    private Long indexId;
     private Integer id;
     private String title;
     private String body;

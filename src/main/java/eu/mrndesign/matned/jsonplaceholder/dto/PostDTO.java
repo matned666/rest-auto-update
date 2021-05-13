@@ -3,6 +3,8 @@ package eu.mrndesign.matned.jsonplaceholder.dto;
 import eu.mrndesign.matned.jsonplaceholder.exception.NullEntityDataProvidedException;
 import eu.mrndesign.matned.jsonplaceholder.model.Post;
 
+import java.util.Objects;
+
 public class PostDTO extends BaseDTO implements IPostDTOApply {
 
     private Integer userId;
@@ -13,7 +15,7 @@ public class PostDTO extends BaseDTO implements IPostDTOApply {
     public PostDTO() {
     }
 
-    PostDTO(Integer userId, Integer id, String title, String body) {
+    public PostDTO(Integer userId, Integer id, String title, String body) {
         this.userId = userId;
         this.id = id;
         this.title = title;
@@ -64,5 +66,18 @@ public class PostDTO extends BaseDTO implements IPostDTOApply {
     private PostDTO setId(Long indexId){
         this.indexId = indexId;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PostDTO postDTO = (PostDTO) o;
+        return Objects.equals(userId, postDTO.userId) && Objects.equals(id, postDTO.id) && Objects.equals(title, postDTO.title) && Objects.equals(body, postDTO.body);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, id, title, body);
     }
 }

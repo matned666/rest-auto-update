@@ -4,15 +4,11 @@ import eu.mrndesign.matned.jsonplaceholder.dto.IPostDTO;
 import eu.mrndesign.matned.jsonplaceholder.exception.NullDataProvidedException;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Json_Place_Holder")
-public class Post implements IPost{
-
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long dataBaseId;
+public class Post extends BaseEntity implements IPost{
 
     private Integer userId;
     private Integer id;
@@ -54,6 +50,7 @@ public class Post implements IPost{
 
     }
 
+    @Override
     public Long getDataBaseId() {
         return dataBaseId;
     }
@@ -66,11 +63,25 @@ public class Post implements IPost{
         return userId;
     }
 
+    @Override
     public String getTitle() {
         return title;
     }
 
     public String getBody() {
         return body;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Post post = (Post) o;
+        return isEdited == post.isEdited && Objects.equals(dataBaseId, post.dataBaseId) && Objects.equals(userId, post.userId) && Objects.equals(id, post.id) && Objects.equals(title, post.title) && Objects.equals(body, post.body);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(dataBaseId, userId, id, title, body, isEdited);
     }
 }

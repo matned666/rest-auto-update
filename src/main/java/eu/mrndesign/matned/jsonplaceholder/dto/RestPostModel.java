@@ -8,14 +8,14 @@ import eu.mrndesign.matned.jsonplaceholder.exception.NullEntityDataProvidedExcep
 import eu.mrndesign.matned.jsonplaceholder.model.Post;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PostModel implements IPostDTO{
+public class RestPostModel implements IPostDTO{
 
     private Integer userId;
     private Integer id;
     private String title;
     private String body;
 
-    public PostModel() {
+    public RestPostModel() {
     }
 
     public IPostDTO apply() {
