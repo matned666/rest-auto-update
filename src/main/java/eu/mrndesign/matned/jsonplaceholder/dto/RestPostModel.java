@@ -1,10 +1,6 @@
 package eu.mrndesign.matned.jsonplaceholder.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import eu.mrndesign.matned.jsonplaceholder.dto.IPostDTO;
-import eu.mrndesign.matned.jsonplaceholder.dto.IPostDTOBase;
-import eu.mrndesign.matned.jsonplaceholder.dto.PostDTO;
-import eu.mrndesign.matned.jsonplaceholder.exception.NullEntityDataProvidedException;
 import eu.mrndesign.matned.jsonplaceholder.model.Post;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
